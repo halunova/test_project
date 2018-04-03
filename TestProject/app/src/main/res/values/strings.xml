@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TestProject</string>
+    <string name="text_tab_first">Personal repos</string>
+    <string name="text_tab_second">Invited repos</string>
+</resources>
