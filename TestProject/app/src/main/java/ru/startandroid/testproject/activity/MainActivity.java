@@ -1,5 +1,5 @@
 package ru.startandroid.testproject.activity;
-
+//TODO remove unused imports.
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -32,13 +32,17 @@ import ru.startandroid.testproject.controller.Controller;
 import ru.startandroid.testproject.viewmodel.LiveDataRepoListViewModel;
 
 public class MainActivity extends AppCompatActivity {
+
+    // TODO avoid copy-paste move duplicate logic in separate module and reuse him.
     private String clientId = "b0a3552b65ffe5311162";
     private String clientSecret = "0904d3e58d9141bc9aeafefa3aef405802f5dde2";
     private String redirectUri = "test-application://callback";
     private String access_token = null;
+    // TODO visibility access violation
     RecyclerView recyclerView;
     RepoAdapter adapter;
-    List<UserRepo> my_repos, inv_repos;
+    // TODO naming JLC violation
+    List<UserRepo> my_repos, inv_repos;// TODO do not inline fields. (one field pier line)
     GithubAPI api;
 
 
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
 
+            // TODO if you need empty list in adapter than move it inside adapter.
             adapter = new RepoAdapter(my_repos);
             recyclerView.setAdapter(adapter);
 
@@ -64,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
             TabHost.TabSpec tabSpec;
 
+            // TODO avoid string hardcode, use strings.xml resources  instead.
             tabSpec = tabHost.newTabSpec("my");
             tabSpec.setIndicator("My repos");
             tabSpec.setContent(R.id.repos_recycle_view);
@@ -76,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
             tabHost.setCurrentTabByTag("my");
 
+            // TODO move all business logic inside ViewModel instead, avoid any state and branches inside view class.
            String code = uri.getQueryParameter("code");
 
             api = Controller.getApi("https://github.com");
@@ -122,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     if(tabId.equals("my")){
                         adapter.setRepos(my_repos);}
                     else adapter.setRepos(inv_repos);
+                    // TODO encapsulate what logic inside adapter.setRepos
                     recyclerView.getAdapter().notifyDataSetChanged();
                 }
             });
